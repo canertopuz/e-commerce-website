@@ -1,0 +1,38 @@
+﻿@model AllOrdersViewModel
+
+<h2>Tüm Siparişler</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Kullanıcı ID</th>
+            <th>Sipariş Tarihi</th>
+            <th>Adres</th>
+            <th>Ürünler</th>
+            <th>Toplam Ücret</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.UserId</td>
+                <td>@order.OrderDate</td>
+                <td>@order.Address.AddressDetail</td>
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <li>@item.ProductName - @item.Quantity x @item.Price</li>
+                        }
+                    </ul>
+                </td>
+                <td>@order.OrderItems.Sum(oi => oi.Quantity * oi.Price)₺</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Toplam Kazanç: @Model.TotalRevenue₺</h3>

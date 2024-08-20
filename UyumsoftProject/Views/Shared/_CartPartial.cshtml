@@ -1,0 +1,33 @@
+﻿@model List<UyumsoftProject.Models.CartItem>
+
+<h4>Sepetiniz</h4>
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @item.ProductName
+            <span class="badge bg-primary rounded-pill">@item.Quantity</span>
+            <span class="badge bg-secondary rounded-pill">@(item.Price * item.Quantity)</span>
+            <form method="post" asp-controller="Cart" asp-action="RemoveFromCart" onsubmit="return removeFromCart(this);">
+                <input type="hidden" name="itemId" value="@item.Id" />
+                <button type="submit" class="btn btn-danger btn-sm">Kaldır</button>
+            </form>
+        </li>
+    }
+</ul>
+
+@if (Model.Any())
+{
+    <div class="total-price">
+        <h5>Toplam: @Model.Sum(item => item.Price * item.Quantity)</h5>
+    </div>
+}
+else
+{
+    <p>Sepetiniz boş.</p>
+}
+
+<form asp-action="Index" asp-controller="Cart" method="post">
+    <button type="submit" class="btn btn-primary">Ödeme Yap</button>
+</form>

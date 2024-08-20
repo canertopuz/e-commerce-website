@@ -1,0 +1,12 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Yeni Sipariş Oluştur";
+}
+
+<h2>Yeni Sipariş Oluştur</h2>
+
+<form asp-action="CreateOrder" method="post">
+    <input type="hidden" name="addressId" value="@Model" />
+    <button type="submit" class="btn btn-primary">Siparişi Tamamla</button>
+</form>

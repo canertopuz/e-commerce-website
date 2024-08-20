@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Topuz Giyim</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Topuz Giyim</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Manager")))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="storeManagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Yönetim
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="storeManagementDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Index">Ürünler</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Index">Kategoriler</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Brand" asp-action="Index">Markalar</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="AllOrders">Tüm Siparişler</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Administration" asp-action="ListUsers">Kullanıcılar</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Administration" asp-action="ListRoles">Roller</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Order" asp-action="Index">Siparişlerim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Address" asp-action="Index">Adreslerim</a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-controller="account" asp-action="logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-light p-0">Çıkış Yap @User?.Identity?.Name</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="account" asp-action="register">Kayıt Ol</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="account" asp-action="login">Giriş Yap</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="bg-dark text-light text-center py-3 mt-4">
+        <div class="container">
+            &copy; 2024 - Topuz Giyim - <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

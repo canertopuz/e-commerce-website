@@ -1,0 +1,56 @@
+﻿@model UyumsoftProject.Models.CartViewModel
+
+@{
+    ViewData["Title"] = "Sepet";
+}
+
+<h2>Sepet</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cart.Items)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Price</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Price * item.Quantity)</td>
+                <td>
+                    <form method="post" asp-controller="Cart" asp-action="RemoveFromCart">
+                        <input type="hidden" name="itemId" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">Kaldır</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" asp-controller="Cart" asp-action="ClearCart">
+    <button type="submit" class="btn btn-warning">Sepeti Temizle</button>
+</form>
+
+<form method="post" asp-controller="Order" asp-action="CreateOrder">
+    <div class="form-group">
+        <label for="address">Adres Seçin:</label>
+        <select id="address" name="addressId" class="form-control">
+            @foreach (var address in Model.Addresses)
+            {
+                <option value="@address.Id" selected="@((address.Id == Model.SelectedAddressId).ToString().ToLower())">
+                    @address.AddressDetail
+                </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Siparişi Tamamla</button>
+
+</form>

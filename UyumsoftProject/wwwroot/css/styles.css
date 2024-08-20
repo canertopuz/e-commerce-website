@@ -1,0 +1,156 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    margin-bottom: 100px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+    header h1 {
+        margin: 0;
+    }
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+    nav ul li {
+        display: inline;
+        margin: 0 1rem;
+    }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+main {
+    padding: 2rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+.product {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+    .product img {
+        max-width: 100%;
+        height: auto;
+    }
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.table thead {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+    .table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+.cart-icon {
+    position: fixed;
+    top: 150px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #f39c12;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cart-icon img {
+    width: 30px;
+    height: 30px;
+}
+.cart-panel {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 300px; 
+    height: 50%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 10px;
+    display: none;
+}
+
+.cart-panel .closebtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.cart-panel h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cart-panel .table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.cart-panel .table th, .cart-panel .table td {
+    text-align: left;
+    padding: 8px;
+    word-wrap: break-word; 
+}
+
+.cart-panel .table th {
+    background-color: #f2f2f2;
+}
+
+.cart-panel .table td {
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-panel .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.product-card {
+    transition: transform 0.2s;
+}
+
+    .product-card:hover {
+        transform: scale(1.05);
+    }

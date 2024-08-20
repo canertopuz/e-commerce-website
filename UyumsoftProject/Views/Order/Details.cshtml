@@ -1,0 +1,43 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Sipariş Detayları";
+    var totalAmount = Model.OrderItems.Sum(item => item.Price * item.Quantity);
+}
+
+<h2>Sipariş Detayları</h2>
+
+<div>
+    <h4>Sipariş ID: @Model.Id</h4>
+    <h4>Sipariş Tarihi: @Model.OrderDate.ToString("dd/MM/yyyy")</h4>
+    <h4>Adres Bilgileri:</h4>
+    <p>Adres ismi: @Model.Address.Name</p>
+    <p>Adres: @Model.Address.AddressDetail</p>
+    <p>Posta Kodu: @Model.Address.PostCode</p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Price₺</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Price * item.Quantity)₺</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <h4>Toplam Sipariş Ücreti: @totalAmount₺</h4>
+</div>

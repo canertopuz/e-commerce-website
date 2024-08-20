@@ -1,0 +1,130 @@
+﻿@model UyumsoftProject.Models.ProductViewModel
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<h1>Ürünler</h1>
+
+@* <form method="get" asp-controller="Home" asp-action="Index">
+    <div class="form-group">
+        <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Ürün ara..." />
+    </div>
+    <div class="form-group">
+        <select name="categoryId" class="form-control">
+            <option value="">Kategori Seç</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id" selected="@((category.Id == Model.SelectedCategoryId).ToString().ToLower())">@category.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <select name="brandId" class="form-control">
+            <option value="">Marka Seç</option>
+            @foreach (var brand in Model.Brands)
+            {
+                <option value="@brand.Id" selected="@((brand.Id == Model.SelectedBrandId).ToString().ToLower())">@brand.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrele</button>
+</form>
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4 product-card">
+            <div class="card">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Price.ToString("C")</p>
+                    <form method="post" asp-controller="Cart" asp-action="AddToCart" class="add-to-cart-form" onsubmit="return addToCart(this);">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <input type="hidden" name="productName" value="@product.Name" />
+                        <input type="hidden" name="price" value="@product.Price" />
+                        <input type="hidden" name="quantity" value= "1" />
+                        <button type="submit" class="btn btn-success" onclick="openCart()">Sepete Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div> *@
+
+<div class="row">
+    <div class="col-md-3 filter-section">
+        <form method="get" asp-controller="Home" asp-action="Index">
+            <div class="form-group">
+                <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Ürün ara..." />
+            </div>
+            <div class="form-group">
+                <label>Kategoriler</label>
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="categoryIds" value="@category.Id" id="category_@category.Id" @(Model.SelectedCategoryIds.Contains(category.Id) ? "checked" : "")>
+                        <label class="form-check-label" for="category_@category.Id">
+                            @category.Name
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label>Markalar</label>
+                @foreach (var brand in Model.Brands)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="brandIds" value="@brand.Id" id="brand_@brand.Id" @(Model.SelectedBrandIds.Contains(brand.Id) ? "checked" : "")>
+                        <label class="form-check-label" for="brand_@brand.Id">
+                            @brand.Name
+                        </label>
+                    </div>
+                }
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrele</button>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-md-4 product-card mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text text-muted">@product.Price.ToString("C")</p>
+                            <form method="post" asp-controller="Cart" asp-action="AddToCart" class="mt-auto add-to-cart-form" onsubmit="return addToCart(this);">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <input type="hidden" name="productName" value="@product.Name" />
+                                <input type="hidden" name="price" value="@product.Price" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-success btn-block" onclick="openCart()">Sepete Ekle</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @* Sepet İkonu *@
+    <div id="cartIcon" class="cart-icon" onclick="openCart()">
+        <img src="~/images/cart-icon.png" alt="Sepet" />
+    </div>
+
+    @* Sepet Paneli *@
+    <div id="cartPanel" class="cart-panel">
+        <span class="closebtn" onclick="closeCart()">&times;</span>
+        <div id="cartItems">
+            @* Sepet içeriği JavaScript ile buraya yüklenecek *@
+        </div>
+    </div>
+}

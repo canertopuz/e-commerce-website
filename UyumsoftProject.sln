@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UyumsoftProject", "UyumsoftProject\UyumsoftProject.csproj", "{1C88531E-0EFC-4AEB-9A7C-7FA3476AA68F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C88531E-0EFC-4AEB-9A7C-7FA3476AA68F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C88531E-0EFC-4AEB-9A7C-7FA3476AA68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C88531E-0EFC-4AEB-9A7C-7FA3476AA68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C88531E-0EFC-4AEB-9A7C-7FA3476AA68F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {405F4D6E-3C05-43F5-B479-97D7633E8EDE}
+	EndGlobalSection
+EndGlobal

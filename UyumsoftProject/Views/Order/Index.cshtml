@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<h2>Siparişlerim</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Sipariş Tarihi</th>
+            <th>Toplam Ürün</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                <td>@order.OrderItems.Count</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-info">Detaylar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
